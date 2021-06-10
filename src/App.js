@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
 import './App.css';
+import Coin from "./Coin";
+import Results from "./Results";
+import heads from "./dime_front.png"
+import tails from "./dime_back.jpeg"
 
-function App() {
+
+function App(props) {
+  const [coinFlip, setCoinFlip] = useState(0);    
+  const [headsCount, setHeadsCount] = useState(0);
+  const [tailsCount, setTailsCount] = useState(0);
+  const coin = props.coins[coinFlip];
+  const flipCoin = () => {
+    setCoinFlip(Math.round(Math.random()));
+    if(coinFlip === 0){
+      setHeadsCount(headsCount + 1);
+    } else {
+      setTailsCount(tailsCount + 1);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    {headsCount + tailsCount === 0 ? null : 
+    <div>
+    <Coin coin={coin}/>
+    <Results headsCount={headsCount} tailsCount={tailsCount}/>
+    </div>
+    }
+      <button 
+        onClick={flipCoin}
+        text="Flip the coin"
+      >Flip the Coin!!!</button>
     </div>
   );
 }
 
+App.defaultProps = {
+  coins: [heads, tails]    
+}
 export default App;
