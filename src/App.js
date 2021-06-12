@@ -12,8 +12,9 @@ function App(props) {
   const [tailsCount, setTailsCount] = useState(0);
   const coin = props.coins[coinFlip];
   const flipCoin = () => {
-    setCoinFlip(Math.round(Math.random()));
-    if(coinFlip === 0){
+    const newCoin = Math.round(Math.random());
+    setCoinFlip(newCoin);
+    if(newCoin === 0){
       setHeadsCount(headsCount + 1);
     } else {
       setTailsCount(tailsCount + 1);
